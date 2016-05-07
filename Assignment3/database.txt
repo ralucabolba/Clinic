@@ -1,0 +1,37 @@
+drop database if exists clinic;
+create database clinic;
+use clinic;
+
+create table ClinicUser (
+	idUser int not null auto_increment primary key,
+    username varchar(100),
+    passwrd varchar(100),
+    typeUser varchar(100)
+);
+
+create table Patient (
+	idPatient int not null auto_increment primary key,
+    namePatient varchar(100),
+    cardNo	varchar(100),
+    cnp		varchar(100),
+    birthDate Date,
+	address	varchar(200)
+);
+
+create table Consultation (
+	idConsultation int not null auto_increment primary key,
+    idPatient int,
+    idDoctor int,
+    dateConsultation Date,
+    statusConsultation	varchar(100),
+    result	varchar(1000),
+    
+    foreign key(idPatient) references Patient(idPatient) on delete cascade on update cascade,
+    foreign key(idDoctor) references ClinicUser(idUser) on delete cascade on update cascade
+);
+
+insert into ClinicUser(username, passwrd, typeUser) values ("admin", "admin", "administrator");
+insert into ClinicUser(username, passwrd, typeUser) values ("raluca", "raluca", "secretary");
+insert into ClinicUser(username, passwrd, typeUser) values ("dhouse", "dhouse", "doctor");
+
+select * from patient;
